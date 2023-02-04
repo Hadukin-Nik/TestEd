@@ -1,6 +1,7 @@
 package org.game.objects.entities;
 
 import org.game.actions.GameAction;
+import org.game.userInterface.BattleInterface;
 
 import java.util.List;
 
@@ -9,6 +10,8 @@ public abstract class GameEntity {
     protected String name;
     protected double health;
     protected double damage;
+
+    protected BattleInterface battleInterface;
 
     public String getId() {
         return id;
