@@ -13,7 +13,7 @@ public class AttackAction implements GameAction {
 
         this.damage = damage;
     }
-    double getDamage() {
+    public double getDamage() {
         return damage;
     }
 

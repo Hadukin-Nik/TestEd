@@ -1,14 +1,12 @@
 package org.game.actions;
 
-import java.awt.datatransfer.StringSelection;
-
-public class HealthAction implements  GameAction{
+public class HealAction implements  GameAction{
     private String sender;
     private String receiver;
 
     private double health;
 
-    public HealthAction(String sender, String receiver, double health) {
+    public HealAction(String sender, String receiver, double health) {
         this.sender = sender;
         this.receiver = receiver;
 
