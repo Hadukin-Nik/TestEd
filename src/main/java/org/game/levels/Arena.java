@@ -13,6 +13,9 @@ public class Arena {
     private HashMap<String, GameEntity>  entitiesList;
 
     public Arena(List<GameEntity> entities) {
+        entitiesQueue = new ArrayList<>();
+        entitiesList = new HashMap<>();
+
         entities.forEach(this::addObject);
     }
 

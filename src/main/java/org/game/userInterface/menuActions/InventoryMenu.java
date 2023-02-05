@@ -1,23 +1,28 @@
 package org.game.userInterface.menuActions;
 
+import org.game.objects.Inventory;
 import org.game.objects.entities.Player;
 
 import java.util.List;
 
 public class InventoryMenu implements MenuAction{
     private MenuAction root;
+    private Inventory inventory;
+    private Player player;
 
     public InventoryMenu(Player player) {
+        this.player = player;
+        this.inventory = player.getInventory();
     }
 
     @Override
     public List<String> getOptions() {
-        return null;
+        return inventory.listItems();
     }
 
     @Override
     public String getHeader() {
-        return null;
+        return "What item will you use?";
     }
 
     @Override
@@ -31,6 +36,6 @@ public class InventoryMenu implements MenuAction{
 
     @Override
     public MenuActionResult createAction(int optionIndex) {
-        return new MenuActionResult(root);
+        return new MenuActionResult(inventory.use(inventory.listByType().get(optionIndex), player.getId(), player.getId()));
     }
 }

@@ -3,10 +3,16 @@ package org.game.objects.entities;
 import org.game.actions.AttackAction;
 import org.game.actions.GameAction;
 import org.game.actions.HealAction;
+import org.game.objects.Inventory;
+import org.game.userInterface.BattleInterface;
+import org.game.userInterface.menuActions.InventoryMenu;
 
 import java.util.List;
 
 public class Player extends GameEntity {
+    private BattleInterface battleInterface;
+    private Inventory inventory;
+
     Player() {
         id = "PlayerID";
         name = "Player";
@@ -15,9 +21,17 @@ public class Player extends GameEntity {
         damage = 10;
     }
 
+    Player(BattleInterface battleInterface, Inventory inventory) {
+        this();
+
+        this.battleInterface = battleInterface;
+        this.inventory = inventory;
+
+    }
+
     @Override
-    public GameAction getAction(List<GameEntity> objects) {
-        return null;
+    public GameAction getAction(List<GameEntity> entities) {
+        return battleInterface.openFightInterface(entities);
     }
 
     @Override
@@ -29,5 +43,9 @@ public class Player extends GameEntity {
         }
 
         return null;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
     }
 }
