@@ -2,6 +2,7 @@ package org.game.userInterface;
 
 import org.game.objects.Inventory;
 import org.game.objects.entities.Bot;
+import org.game.objects.entities.BotFactory;
 import org.game.objects.entities.Player;
 import org.junit.jupiter.api.Test;
 
@@ -46,7 +47,7 @@ class BattleInterfaceTest {
         Player player = new Player();
         ByteArrayInputStream fakeInput = new ByteArrayInputStream("3".getBytes(StandardCharsets.UTF_8));
         BattleInterface battleInterface = new BattleInterface(fakePrinter, fakeInput);
-        Bot bot = new Bot("testBot");
+        Bot bot = BotFactory.createSingleOrc("testBot");
 
 
 
@@ -64,7 +65,7 @@ class BattleInterfaceTest {
         ByteArrayInputStream fakeInput = new ByteArrayInputStream("1\n1".getBytes(StandardCharsets.UTF_8));
         Player player = new Player();
         BattleInterface battleInterface = new BattleInterface(fakePrinter, fakeInput);
-        Bot bot = new Bot("testBot");
+        Bot bot = BotFactory.createSingleOrc("testBot");
 
         battleInterface.openFightInterface(List.of(bot, player));
         String expectedResult = "Player health is: 100.0\n" +
@@ -84,7 +85,7 @@ class BattleInterfaceTest {
         ByteArrayInputStream fakeInput = new ByteArrayInputStream("2\n-\n3".getBytes(StandardCharsets.UTF_8));
         Player player = new Player(null, new Inventory(3));
         BattleInterface battleInterface = new BattleInterface(fakePrinter, fakeInput);
-        Bot bot = new Bot("testBot");
+        Bot bot = BotFactory.createSingleOrc("testBot");
 
         battleInterface.openFightInterface(List.of(bot, player));
         String expectedResult = "Player health is: 100.0\n" +
@@ -104,7 +105,7 @@ class BattleInterfaceTest {
         Player player = new Player();
         ByteArrayInputStream fakeInput = new ByteArrayInputStream("1\n-\n3".getBytes(StandardCharsets.UTF_8));
         BattleInterface battleInterface = new BattleInterface(fakePrinter, fakeInput);
-        Bot bot = new Bot("testBot");
+        Bot bot = BotFactory.createSingleOrc("testBot");
 
         battleInterface.openFightInterface(List.of(bot, player));
         String expectedResult = "Player health is: 100.0\n" +

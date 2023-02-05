@@ -41,7 +41,7 @@ public class BattleInterface {
 
         Player player = (Player) entities.stream().filter(obj -> obj instanceof Player).findFirst().get();
 
-        printer.println("Player health is: " + player.getHealth());
+        printer.println("Player health is: " + prettyPrint(player.getHealth()));
 
         List<GameEntity> enemies = entities.stream()
                 .filter(Predicate.not(obj -> obj instanceof Player))
@@ -109,9 +109,11 @@ public class BattleInterface {
     private void printAction() {
         for (GameAction action:storageOfMessages) {
             if (action instanceof AttackAction) {
-                this.printer.println(entityHashMap.get(action.getSender()).getName() + " kick " + entityHashMap.get(action.getReceiver()).getName()  + " with damage " + ((AttackAction) action).getDamage());
+                String damage = prettyPrint(((AttackAction) action).getDamage());
+                this.printer.println(entityHashMap.get(action.getSender()).getName() + " kick " + entityHashMap.get(action.getReceiver()).getName()  + " with damage " + damage);
             } else if (action instanceof HealAction) {
-                this.printer.println(entityHashMap.get(action.getSender()).getName()  + " healed " + entityHashMap.get(action.getReceiver()).getName() + " on " + ((HealAction) action).getHealth() + " health points");
+                String health = prettyPrint(((HealAction) action).getHealth());
+                this.printer.println(entityHashMap.get(action.getSender()).getName()  + " healed " + entityHashMap.get(action.getReceiver()).getName() + " on " + health + " health points");
             } else if (action instanceof DodgeAction) {
                 this.printer.println(entityHashMap.get(action.getSender()).getName()  + " dodged attack of " + entityHashMap.get(action.getReceiver()).getName());
 
@@ -121,6 +123,10 @@ public class BattleInterface {
     }
     public void printAction(GameAction action) {
         storageOfMessages.add(action);
+    }
+
+    private String prettyPrint(double d) {
+       return String.format("%,.2f", d);
     }
 }
 

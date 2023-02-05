@@ -29,6 +29,10 @@ public abstract class GameEntity {
         return health;
     }
 
+    public void setHealth(double health) {
+        this.health = health;
+    }
+
     public boolean hasAction() {
         return true;
     }

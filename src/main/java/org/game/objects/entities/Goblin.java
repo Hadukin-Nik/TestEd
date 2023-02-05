@@ -15,14 +15,15 @@ public class Goblin extends Bot{
 
     public Goblin() {}
 
-    public Goblin(String name, double chanceOfDodge) {
-        super(name);
+
+    public Goblin(double chanceOfDodge) {
         this.chanceOfDodge = Math.min(chanceOfDodge, maxChanceDodge);
         this.chanceOfDodge = Math.max(this.chanceOfDodge, minChanceDodge);
     }
 
     public Goblin(Bot bot, double chanceOfDodge) {
         super(bot);
+
         this.chanceOfDodge = Math.min(chanceOfDodge, maxChanceDodge);
         this.chanceOfDodge = Math.max(this.chanceOfDodge, minChanceDodge);
     }
