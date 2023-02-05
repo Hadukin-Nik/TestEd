@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 public class BattleInterface {
     public static String USER_INPUT = ">: ";
-    private UI_Printer printer;
+    private UIPrinter printer;
 
     private final Scanner scanner;
 
@@ -27,7 +27,7 @@ public class BattleInterface {
     private List<GameAction> storageOfMessages;
     private HashMap<String, GameEntity> entityHashMap;
 
-    public BattleInterface(UI_Printer printer, InputStream input) {
+    public BattleInterface(UIPrinter printer, InputStream input) {
         this.printer = printer;
         this.scanner = new Scanner(input);
 

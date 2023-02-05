@@ -1,6 +1,6 @@
 package org.game.userInterface;
 
-public interface UI_Printer {
+public interface UIPrinter {
     void print(String str);
     void println(String str);
 }

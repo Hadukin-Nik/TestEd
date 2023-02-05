@@ -3,8 +3,6 @@ package org.game.userInterface;
 import org.game.objects.Inventory;
 import org.game.objects.entities.Bot;
 import org.game.objects.entities.Player;
-import org.game.userInterface.BattleInterface;
-import org.game.userInterface.UI_Printer;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
@@ -16,7 +14,7 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BattleInterfaceTest {
-    class FakePrinter implements UI_Printer {
+    class FakePrinter implements UIPrinter {
         List<String> out = new ArrayList<>();
 
         @Override

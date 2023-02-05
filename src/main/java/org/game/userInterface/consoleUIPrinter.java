@@ -1,6 +1,6 @@
 package org.game.userInterface;
 
-public class ConsoleUI_Printer implements UI_Printer{
+public class consoleUIPrinter implements UIPrinter {
     @Override
     public void print(String str) {
         System.out.print(str);
