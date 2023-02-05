@@ -24,7 +24,7 @@ public class Bot extends GameEntity{
         this.name = name;
     }
 
-    Bot(String name, double health) {
+    Bot(String name, int health) {
         this(name);
 
         this.health = health;
@@ -49,11 +49,10 @@ public class Bot extends GameEntity{
     @Override
     public GameAction processAction(GameAction action, List<GameEntity> entities) {
         if (action instanceof AttackAction && attackReactionStrategy != null) {
-            GameAction attackReaction = attackReactionStrategy.processAttack(action.getSender(), id);
+            GameAction attackReaction = attackReactionStrategy.processAttack(action.getSender(), this, (AttackAction) action);
             if (attackReaction != null) {
                 return attackReaction;
             }
-            health = Math.max(0.0, health - ((AttackAction) action).getDamage());
         }
 
         return null;

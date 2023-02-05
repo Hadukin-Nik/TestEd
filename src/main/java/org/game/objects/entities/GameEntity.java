@@ -8,8 +8,8 @@ import java.util.List;
 public abstract class GameEntity {
     protected String id;
     protected String name;
-    protected double health;
-    protected double damage;
+    protected int health;
+    protected int damage;
 
     protected BattleInterface battleInterface;
 
@@ -21,15 +21,15 @@ public abstract class GameEntity {
         return name;
     }
 
-    public double getDamage() {
+    public int getDamage() {
         return damage;
     }
 
-    public double getHealth() {
+    public int getHealth() {
         return health;
     }
 
-    public void setHealth(double health) {
+    public void setHealth(int health) {
         this.health = health;
     }
 

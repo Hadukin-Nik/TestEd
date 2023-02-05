@@ -11,9 +11,9 @@ public enum MedKit implements IItem{
 
     private String name;
 
-    private double healPower;
+    private int healPower;
 
-    MedKit(String name, double healPower) {
+    MedKit(String name, int healPower) {
         this.name = name;
 
         this.healPower = healPower;

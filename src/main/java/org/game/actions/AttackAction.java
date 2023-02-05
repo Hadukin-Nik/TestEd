@@ -5,15 +5,15 @@ public class AttackAction implements GameAction {
     private String sender;
     private String receiver;
 
-    private double damage;
+    private int damage;
 
-    public AttackAction (String sender, String receiver, double damage) {
+    public AttackAction (String sender, String receiver, int damage) {
         this.sender = sender;
         this.receiver = receiver;
 
         this.damage = damage;
     }
-    public double getDamage() {
+    public int getDamage() {
         return damage;
     }
 

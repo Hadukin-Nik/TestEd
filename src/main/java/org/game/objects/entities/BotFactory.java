@@ -2,7 +2,10 @@ package org.game.objects.entities;
 
 import org.game.objects.strategy.attack.AttackStrategy;
 import org.game.objects.strategy.attack.RandomAttackStrategy;
+import org.game.objects.strategy.attackReaction.DefaultStrategy;
 import org.game.objects.strategy.attackReaction.DodgeStrategy;
+import org.game.objects.strategy.attackReaction.ReactionsChain;
+import org.game.util.RandDoubleGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,28 +13,24 @@ import java.util.List;
 public class BotFactory {
 
     private static final AttackStrategy attackStrategy = new RandomAttackStrategy();
-    private static final DodgeStrategy dodgeStrategy = new DodgeStrategy();
+    private static final DodgeStrategy dodgeStrategy = new DodgeStrategy(new RandDoubleGenerator(), 3.0);
+    private static final DefaultStrategy defaultStrategy = new DefaultStrategy();
 
     public static Bot createSingleOrc(String name) {
         Bot bot = new Bot(name);
-        bot.setAttackStrategy(attackStrategy);
+        initOrc(bot);
         return bot;
     }
 
     public static List<Bot> createOrcs(int count) {
         List<Bot> res = createBots("Orc", count);
-        res.forEach(bot -> bot.setAttackStrategy(attackStrategy));
+        res.forEach(BotFactory::initOrc);
         return res;
     }
 
     public static List<Bot> createGoblins(int count) {
         List<Bot> res = createBots("Goblin", count);
-        res.forEach(bot -> {
-            bot.setHealth(20.0);
-            bot.setAttackStrategy(attackStrategy);
-            bot.setAttackReactionStrategy(dodgeStrategy);
-        });
-
+        res.forEach(BotFactory::initGoblin);
         return res;
     }
 
@@ -41,6 +40,19 @@ public class BotFactory {
             res.add(new Bot(name + "#" + (i + 1)));
         }
         return res;
+    }
+
+    private static void initOrc(Bot bot) {
+        bot.setAttackStrategy(attackStrategy);
+        bot.setAttackReactionStrategy(defaultStrategy);
+    }
+
+    private static void initGoblin(Bot bot) {
+        bot.setHealth(20);
+        bot.setAttackStrategy(attackStrategy);
+        bot.setAttackReactionStrategy(
+                new ReactionsChain(List.of(dodgeStrategy, defaultStrategy))
+        );
     }
 
 

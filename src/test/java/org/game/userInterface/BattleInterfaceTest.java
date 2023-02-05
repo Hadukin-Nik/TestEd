@@ -52,7 +52,7 @@ class BattleInterfaceTest {
 
 
         battleInterface.openFightInterface(List.of(bot, player));
-        String expectedResult = "Player health is: 100.0\n" +
+        String expectedResult = "Player health is: 100\n" +
                 "You see enemies:\n" +
                 String.format("The %s have %s health points\n", bot.getName(), bot.getHealth()) +
                 rootOptions;
@@ -68,7 +68,7 @@ class BattleInterfaceTest {
         Bot bot = BotFactory.createSingleOrc("testBot");
 
         battleInterface.openFightInterface(List.of(bot, player));
-        String expectedResult = "Player health is: 100.0\n" +
+        String expectedResult = "Player health is: 100\n" +
                 "You see enemies:\n" +
                 String.format("The %s have %s health points\n", bot.getName(), bot.getHealth()) +
                 rootOptions +
@@ -88,7 +88,7 @@ class BattleInterfaceTest {
         Bot bot = BotFactory.createSingleOrc("testBot");
 
         battleInterface.openFightInterface(List.of(bot, player));
-        String expectedResult = "Player health is: 100.0\n" +
+        String expectedResult = "Player health is: 100\n" +
                 "You see enemies:\n" +
                 String.format("The %s have %s health points\n", bot.getName(), bot.getHealth()) +
                 rootOptions +
@@ -108,7 +108,7 @@ class BattleInterfaceTest {
         Bot bot = BotFactory.createSingleOrc("testBot");
 
         battleInterface.openFightInterface(List.of(bot, player));
-        String expectedResult = "Player health is: 100.0\n" +
+        String expectedResult = "Player health is: 100\n" +
                 "You see enemies:\n" +
                 String.format("The %s have %s health points\n", bot.getName(), bot.getHealth()) +
                 rootOptions +

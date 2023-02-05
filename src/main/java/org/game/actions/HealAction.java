@@ -1,15 +1,14 @@
 package org.game.actions;
 
-public class HealAction implements  GameAction{
+public class HealAction implements GameAction {
     private String sender;
     private String receiver;
 
-    private double health;
+    private int health;
 
-    public HealAction(String sender, String receiver, double health) {
+    public HealAction(String sender, String receiver, int health) {
         this.sender = sender;
         this.receiver = receiver;
-
         this.health = health;
     }
     @Override
@@ -22,7 +21,7 @@ public class HealAction implements  GameAction{
         return receiver;
     }
 
-    public double getHealth() {
+    public int getHealth() {
         return health;
     }
 }

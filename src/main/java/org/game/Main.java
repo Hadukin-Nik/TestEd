@@ -23,7 +23,7 @@ public class Main {
                 new Inventory(10)
         ));
         objects.addAll(BotFactory.createGoblins(2));
-        Arena arena = new Arena(objects);
+        Arena arena = new Arena(objects, List.of());
 
         boolean isDone = false;
         while(!isDone) {

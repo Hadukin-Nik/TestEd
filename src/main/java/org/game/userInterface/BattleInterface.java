@@ -1,9 +1,6 @@
 package org.game.userInterface;
 
-import org.game.actions.AttackAction;
-import org.game.actions.DodgeAction;
-import org.game.actions.GameAction;
-import org.game.actions.HealAction;
+import org.game.actions.*;
 import org.game.objects.entities.GameEntity;
 import org.game.objects.entities.Player;
 import org.game.userInterface.menuActions.*;
@@ -37,11 +34,11 @@ public class BattleInterface {
     public GameAction openFightInterface(List<GameEntity> entities) {
         entityHashMap = new HashMap<>(entities.stream().collect(Collectors.toMap(GameEntity::getId, Function.identity())));
 
-        printAction();
+        printActions();
 
         Player player = (Player) entities.stream().filter(obj -> obj instanceof Player).findFirst().get();
 
-        printer.println("Player health is: " + prettyPrint(player.getHealth()));
+        printer.println("Player health is: " + player.getHealth());
 
         List<GameEntity> enemies = entities.stream()
                 .filter(Predicate.not(obj -> obj instanceof Player))
@@ -106,27 +103,26 @@ public class BattleInterface {
         this.printer.print(USER_INPUT);
     }
 
-    private void printAction() {
+    public void printActions() {
         for (GameAction action:storageOfMessages) {
             if (action instanceof AttackAction) {
-                String damage = prettyPrint(((AttackAction) action).getDamage());
+                int damage = ((AttackAction) action).getDamage();
                 this.printer.println(entityHashMap.get(action.getSender()).getName() + " kick " + entityHashMap.get(action.getReceiver()).getName()  + " with damage " + damage);
             } else if (action instanceof HealAction) {
-                String health = prettyPrint(((HealAction) action).getHealth());
+                int health = ((HealAction) action).getHealth();
                 this.printer.println(entityHashMap.get(action.getSender()).getName()  + " healed " + entityHashMap.get(action.getReceiver()).getName() + " on " + health + " health points");
             } else if (action instanceof DodgeAction) {
                 this.printer.println(entityHashMap.get(action.getSender()).getName()  + " dodged attack of " + entityHashMap.get(action.getReceiver()).getName());
-
+            } else if (action instanceof GameEndAction) {
+                this.printer.println("Game over!");
+            } else {
+                this.printer.println("UNKNOWN ACTION TO PRING");
             }
         }
         storageOfMessages.clear();
     }
-    public void printAction(GameAction action) {
+    public void printActions(GameAction action) {
         storageOfMessages.add(action);
-    }
-
-    private String prettyPrint(double d) {
-       return String.format("%,.2f", d);
     }
 }
 
