@@ -31,6 +31,6 @@ public class InventoryMenu implements MenuAction{
 
     @Override
     public MenuActionResult createAction(int optionIndex) {
-        return null;
+        return new MenuActionResult(root);
     }
 }
