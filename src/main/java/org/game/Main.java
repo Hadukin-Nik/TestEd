@@ -22,7 +22,7 @@ public class Main {
                 new BattleInterface(new ConsoleUI_Printer(), System.in),
                 new Inventory(10)
         ));
-        objects.addAll(BotFactory.createOrcs(2));
+        objects.addAll(BotFactory.createGoblins(2));
         Arena arena = new Arena(objects);
 
         boolean isDone = false;

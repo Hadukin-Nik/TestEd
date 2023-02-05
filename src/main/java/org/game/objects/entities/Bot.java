@@ -19,6 +19,16 @@ public class Bot extends GameEntity{
         this.name = name;
     }
 
+    public Bot(String name, double health) {
+        this(name);
+
+        this.health = health;
+    }
+
+    public Bot(Bot bot) {
+        this(bot.name, bot.health);
+    }
+
     @Override
     public GameAction getAction(List<GameEntity> objects) {
         for (var obj: objects) {

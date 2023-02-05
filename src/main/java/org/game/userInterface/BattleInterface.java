@@ -1,6 +1,7 @@
 package org.game.userInterface;
 
 import org.game.actions.AttackAction;
+import org.game.actions.DodgeAction;
 import org.game.actions.GameAction;
 import org.game.actions.HealAction;
 import org.game.objects.entities.GameEntity;
@@ -111,9 +112,12 @@ public class BattleInterface {
                 this.printer.println(entityHashMap.get(action.getSender()).getName() + " kick " + entityHashMap.get(action.getReceiver()).getName()  + " with damage " + ((AttackAction) action).getDamage());
             } else if (action instanceof HealAction) {
                 this.printer.println(entityHashMap.get(action.getSender()).getName()  + " healed " + entityHashMap.get(action.getReceiver()).getName() + " on " + ((HealAction) action).getHealth() + " health points");
+            } else if (action instanceof DodgeAction) {
+                this.printer.println(entityHashMap.get(action.getSender()).getName()  + " dodged attack of " + entityHashMap.get(action.getReceiver()).getName());
+
             }
         }
-
+        storageOfMessages.clear();
     }
     public void printAction(GameAction action) {
         storageOfMessages.add(action);
