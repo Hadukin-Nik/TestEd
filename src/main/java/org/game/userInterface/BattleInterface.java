@@ -7,10 +7,14 @@ import org.game.objects.entities.GameEntity;
 import org.game.objects.entities.Player;
 import org.game.userInterface.menuActions.*;
 
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
+import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class BattleInterface {
     public static String USER_INPUT = ">: ";
@@ -19,23 +23,24 @@ public class BattleInterface {
     private final Scanner scanner;
 
 
-    private List<String> storageOfMessages;
+    private List<GameAction> storageOfMessages;
+    private HashMap<String, GameEntity> entityHashMap;
 
-    public BattleInterface(UI_Printer printer, Scanner scanner) {
+    public BattleInterface(UI_Printer printer, InputStream input) {
         this.printer = printer;
-        this.scanner = scanner;
+        this.scanner = new Scanner(input);
+
+        storageOfMessages = new ArrayList<>();
     }
 
     public GameAction openFightInterface(List<GameEntity> entities) {
-        if (!storageOfMessages.isEmpty()) {
-            for (int i = 0; i < storageOfMessages.size(); i++) {
-                printer.println(storageOfMessages.get(i));
-            }
+        entityHashMap = new HashMap<>(entities.stream().collect(Collectors.toMap(GameEntity::getId, Function.identity())));
 
-            storageOfMessages.clear();
-        }
+        printAction();
 
         Player player = (Player) entities.stream().filter(obj -> obj instanceof Player).findFirst().get();
+
+        printer.println("Player health is: " + player.getHealth());
 
         List<GameEntity> enemies = entities.stream()
                 .filter(Predicate.not(obj -> obj instanceof Player))
@@ -43,14 +48,16 @@ public class BattleInterface {
 
         if (!enemies.isEmpty()) {
             this.printer.println("You see enemies:");
-            entities.forEach(obj -> this.printer.println((obj.getGameLogState())));
+            enemies.forEach(obj -> this.printer.println((obj.getGameLogState())));
         }
         RootMenu rootMenu = new RootMenu(new AttackMenu(player, enemies), new InventoryMenu(player));
+
         return getActionFromMenu(rootMenu);
     }
 
     private GameAction getActionFromMenu(MenuAction menuAction) {
         this.printer.println(menuAction.getHeader());
+
         List<String> options = menuAction.getOptions();
 
         for (int i = 0; i < options.size(); i++) {
@@ -80,7 +87,7 @@ public class BattleInterface {
                     continue;
                 }
                 MenuActionResult menuActionResult = menuAction.createAction(inputInt);
-                if (menuActionResult != null) {
+                if (menuActionResult.getMenuAction() != null) {
                     return getActionFromMenu(menuActionResult.getMenuAction());
                 }
 
@@ -98,18 +105,18 @@ public class BattleInterface {
         this.printer.print(USER_INPUT);
     }
 
-    private void storeActionForPrint(String action) {
-        if (storageOfMessages == null) {
-            storageOfMessages = new ArrayList<>();
+    private void printAction() {
+        for (GameAction action:storageOfMessages) {
+            if (action instanceof AttackAction) {
+                this.printer.println(entityHashMap.get(action.getSender()).getName() + " kick " + entityHashMap.get(action.getReceiver()).getName()  + " with damage " + ((AttackAction) action).getDamage());
+            } else if (action instanceof HealAction) {
+                this.printer.println(entityHashMap.get(action.getSender()).getName()  + " healed " + entityHashMap.get(action.getReceiver()).getName() + " on " + ((HealAction) action).getHealth() + " health points");
+            }
         }
+
+    }
+    public void printAction(GameAction action) {
         storageOfMessages.add(action);
     }
-
-    public void printAction(GameAction action) {
-        if (action instanceof AttackAction) {
-            this.storeActionForPrint(action.getSender() + " kick " + action.getReceiver() + " with damage " + ((AttackAction) action).getDamage());
-        } else if (action instanceof HealAction) {
-            this.storeActionForPrint(action.getSender() + " healed " + action.getReceiver() + " on " + ((AttackAction) action).getDamage() + " health points");
-        }
-    }
 }
+

@@ -38,7 +38,7 @@ public class Inventory {
         List<String> res = new ArrayList<>();
 
         for (var entry : items.entrySet()) {
-            res.add(entry.getKey().getName() + ":" + entry.getValue());
+            res.add(entry.getKey().getName() + ": " + entry.getValue());
         }
         return res;
     }

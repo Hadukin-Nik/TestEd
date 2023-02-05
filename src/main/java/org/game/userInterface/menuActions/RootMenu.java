@@ -13,6 +13,7 @@ public class RootMenu implements MenuAction{
     public RootMenu(AttackMenu attackMenu, InventoryMenu inventoryMenu) {
         this.attackMenu = attackMenu;
         this.inventoryMenu = inventoryMenu;
+
         attackMenu.setRoot(this);
         inventoryMenu.setRoot(this);
     }

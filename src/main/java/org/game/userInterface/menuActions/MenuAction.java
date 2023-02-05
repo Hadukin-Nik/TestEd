@@ -3,11 +3,11 @@ package org.game.userInterface.menuActions;
 import java.util.List;
 
 public interface MenuAction {
-    public List<String> getOptions();
+    List<String> getOptions();
 
-    public String getHeader();
+    String getHeader();
 
-    public MenuAction getRoot();
+    MenuAction getRoot();
 
     MenuActionResult createAction(int optionIndex);
 }

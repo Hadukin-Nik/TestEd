@@ -10,6 +10,13 @@ public class Bot extends GameEntity{
     public Bot() {
         id = Rands.getRandomID();
         name = "Empty Bot";
+        health = 10;
+    }
+
+    public Bot(String name) {
+        this();
+
+        this.name = name;
     }
 
     @Override

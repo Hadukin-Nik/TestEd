@@ -1,9 +1,9 @@
 package org.game.userInterface;
 
 public enum UserBattleActions {
-    ATTACK("Атаковать"),
-    INVENTORY("Инвентарь"),
-    PASS("Пропустить ход");
+    ATTACK("Attack"),
+    INVENTORY("Use inventory"),
+    PASS("Pass");
 
     private String str;
 

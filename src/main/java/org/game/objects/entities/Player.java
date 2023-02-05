@@ -13,15 +13,17 @@ public class Player extends GameEntity {
     private BattleInterface battleInterface;
     private Inventory inventory;
 
-    Player() {
+    public Player() {
         id = "PlayerID";
         name = "Player";
 
         health = 100;
         damage = 10;
+
+        inventory = new Inventory();
     }
 
-    Player(BattleInterface battleInterface, Inventory inventory) {
+    public Player(BattleInterface battleInterface, Inventory inventory) {
         this();
 
         this.battleInterface = battleInterface;
@@ -47,5 +49,9 @@ public class Player extends GameEntity {
 
     public Inventory getInventory() {
         return inventory;
+    }
+
+    public BattleInterface getBattleInterface() {
+        return battleInterface;
     }
 }
