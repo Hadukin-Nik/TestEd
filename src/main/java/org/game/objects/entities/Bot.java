@@ -5,8 +5,11 @@ import org.game.actions.GameAction;
 import org.game.util.Rands;
 
 import java.util.List;
+import java.util.Random;
 
 public class Bot extends GameEntity{
+    protected double maxChanceAttack = 5.0;
+    protected double minChanceAttack = 0.0;
     public Bot() {
         id = Rands.getRandomID();
         name = "Empty Bot";
@@ -29,11 +32,18 @@ public class Bot extends GameEntity{
         this(bot.name, bot.health);
     }
 
+    public void setBorderForChanceAttack(double min, double max) {
+        maxChanceAttack = Math.max(0, max);
+        minChanceAttack = Math.max(0, min);
+    }
+
     @Override
     public GameAction getAction(List<GameEntity> objects) {
+        Random random = new Random();
+
         for (var obj: objects) {
             if (obj instanceof Player) {
-                return new AttackAction(id, obj.getId(), 1);
+                return new AttackAction(id, obj.getId(), random.nextDouble(maxChanceAttack));
             }
         }
 

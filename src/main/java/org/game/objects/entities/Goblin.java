@@ -9,27 +9,25 @@ import java.util.Random;
 
 public class Goblin extends Bot{
     private double chanceOfDodge = 3;
-    protected double maxChance = 10.0;
-    protected double minChance = 0.0;
+
+    protected double minChanceDodge = 0.0;
+    protected double maxChanceDodge = 10.0;
 
     public Goblin() {}
 
     public Goblin(String name, double chanceOfDodge) {
         super(name);
-        this.chanceOfDodge = Math.min(chanceOfDodge, maxChance);
-        this.chanceOfDodge = Math.max(this.chanceOfDodge, minChance);
+        this.chanceOfDodge = Math.min(chanceOfDodge, maxChanceDodge);
+        this.chanceOfDodge = Math.max(this.chanceOfDodge, minChanceDodge);
     }
 
     public Goblin(Bot bot, double chanceOfDodge) {
         super(bot);
-        this.chanceOfDodge = Math.min(chanceOfDodge, maxChance);
-        this.chanceOfDodge = Math.max(this.chanceOfDodge, minChance);
+        this.chanceOfDodge = Math.min(chanceOfDodge, maxChanceDodge);
+        this.chanceOfDodge = Math.max(this.chanceOfDodge, minChanceDodge);
     }
 
-    public void setBorderForDodge(double min, double max) {
-        maxChance = Math.max(0, max);
-        minChance = Math.max(0, min);
-    }
+
 
 
 
@@ -37,7 +35,7 @@ public class Goblin extends Bot{
     public GameAction processAction(GameAction action, List<GameEntity> entities) {
         Random rand = new Random();
 
-        if (action instanceof AttackAction && rand.nextDouble(maxChance) > chanceOfDodge) {
+        if (action instanceof AttackAction && rand.nextDouble(maxChanceDodge) > chanceOfDodge) {
             health = Math.max(0.0, health - ((AttackAction) action).getDamage());
             return null;
         }
