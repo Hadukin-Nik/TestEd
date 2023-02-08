@@ -2,13 +2,13 @@ package org.game;
 
 import org.game.levels.Arena;
 import org.game.objects.Inventory;
-import org.game.objects.entities.BotFactory;
-import org.game.objects.entities.GameEntity;
-import org.game.objects.entities.Player;
+import org.game.objects.entities.*;
 import org.game.userInterface.BattleInterface;
 import org.game.userInterface.ConsoleUIPrinter;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Main {
@@ -18,12 +18,21 @@ public class Main {
 
     static void startGame() {
         List<GameEntity> objects = new ArrayList<>();
-        objects.add(new Player(
+        LevelMaster levelMaster = new LevelMaster();
+        Player player = new Player(
                 new BattleInterface(new ConsoleUIPrinter(), System.in),
-                new Inventory(10)
-        ));
-        objects.addAll(BotFactory.createGoblins(2));
-        Arena arena = new Arena(objects, List.of());
+                new Inventory(10),
+                levelMaster
+        );
+        List<GameEntity> enemies = new ArrayList<>();
+        enemies.addAll(BotFactory.createGoblins(2));
+        levelMaster.addAllies(Arrays.asList(player));
+        levelMaster.addEnemies(enemies);
+
+        objects.add(player);
+        objects.addAll(enemies);
+
+        Arena arena = new Arena(objects, levelMaster, Arrays.asList());
 
         boolean isDone = false;
         while(!isDone) {

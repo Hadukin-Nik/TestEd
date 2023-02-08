@@ -16,6 +16,7 @@ public class Bot extends GameEntity{
         id = Rands.getRandomID();
         name = "Empty Bot";
         health = 10;
+
     }
 
     Bot(String name) {
@@ -24,15 +25,6 @@ public class Bot extends GameEntity{
         this.name = name;
     }
 
-    Bot(String name, int health) {
-        this(name);
-
-        this.health = health;
-    }
-
-    Bot(Bot bot) {
-        this(bot.name, bot.health);
-    }
 
     @Override
     public GameAction getAction(List<GameEntity> objects) {

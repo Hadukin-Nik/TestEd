@@ -16,7 +16,7 @@ public class Player extends GameEntity {
     private BattleInterface battleInterface;
     private Inventory inventory;
 
-    private final AttackReactionStrategy attackReactionStrategy = new DefaultPlayerStrategy();
+    private AttackReactionStrategy attackReactionStrategy;
 
     public Player() {
         id = "PlayerID";
@@ -28,11 +28,12 @@ public class Player extends GameEntity {
         inventory = new Inventory();
     }
 
-    public Player(BattleInterface battleInterface, Inventory inventory) {
+    public Player(BattleInterface battleInterface, Inventory inventory, LevelMaster levelMaster) {
         this();
 
         this.battleInterface = battleInterface;
         this.inventory = inventory;
+        this.attackReactionStrategy = new DefaultPlayerStrategy(levelMaster);
 
     }
 

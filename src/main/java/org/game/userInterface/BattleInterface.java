@@ -114,15 +114,23 @@ public class BattleInterface {
             } else if (action instanceof DodgeAction) {
                 this.printer.println(entityHashMap.get(action.getSender()).getName()  + " dodged attack of " + entityHashMap.get(action.getReceiver()).getName());
             } else if (action instanceof GameEndAction) {
-                this.printer.println("Game over!");
+                this.printer.println(((GameEndAction) action).getMessage());
+            }else if (action instanceof DeathAction) {
+                this.printer.println(((DeathAction) action).getMessage());
             } else {
-                this.printer.println("UNKNOWN ACTION TO PRING");
+                this.printer.println("UNKNOWN ACTION TO PRINT");
             }
         }
         storageOfMessages.clear();
     }
-    public void printActions(GameAction action) {
+    public void addActionLogToQueue(GameAction action) {
         storageOfMessages.add(action);
     }
+    public void addActionLogToQueueAndPrint(GameAction action) {
+        addActionLogToQueue(action);
+        printActions();
+    }
+
+
 }
 

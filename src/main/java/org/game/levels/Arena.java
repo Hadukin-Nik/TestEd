@@ -1,8 +1,10 @@
 package org.game.levels;
 
+import org.game.actions.DeathAction;
 import org.game.actions.GameAction;
 import org.game.actions.GameEndAction;
 import org.game.objects.entities.GameEntity;
+import org.game.objects.entities.LevelMaster;
 import org.game.objects.entities.Player;
 import org.game.userInterface.BattleInterface;
 
@@ -21,10 +23,12 @@ public class Arena {
 
     private BattleInterface battleInterface;
 
-    public Arena(List<GameEntity> entities, List<GameEntity> actionListeners) {
+    public Arena(List<GameEntity> entitiesOnField, LevelMaster levelMaster, List<GameEntity> actionListeners) {
         entitiesQueue = new ArrayList<>();
         entitiesList = new HashMap<>();
-        entities.forEach(this::addEntityObject);
+        entitiesOnField.forEach(this::addEntityObject);
+
+        entitiesList.put(levelMaster.getId(), levelMaster);
 
         this.actionListeners = new HashMap<>();
         this.actionListenersList = new ArrayList<>();
@@ -52,22 +56,27 @@ public class Arena {
             GameAction action = entity.getAction(entitiesQueue);
 
             if (action != null) {
-                battleInterface.printActions(action);
+                battleInterface.addActionLogToQueue(action);
 
                 GameEntity actionReceiver = entitiesList.get(action.getReceiver());
 
                 if (actionReceiver != null) {
                     GameAction receiverAction = actionReceiver.processAction(action, entitiesQueue);
-                    battleInterface.printActions(receiverAction);
-                    if (receiverAction instanceof GameAction) {
-                        battleInterface.printActions();
-                        return true;
-                    }
-                }
 
-                if (action instanceof GameEndAction) {
-                    battleInterface.printActions();
-                    return true;
+                    if (receiverAction instanceof DeathAction) {
+                        GameAction levelMasterReaction = entitiesList.get(receiverAction.getReceiver()).processAction(receiverAction, entitiesQueue);
+                        battleInterface.addActionLogToQueue(receiverAction);
+
+                        if (levelMasterReaction instanceof GameEndAction) {
+                            battleInterface.addActionLogToQueueAndPrint(levelMasterReaction);
+                            return true;
+                        }
+                    }
+
+
+                    if (receiverAction != null) {
+                        battleInterface.addActionLogToQueue(receiverAction);
+                    }
                 }
             }
         }
