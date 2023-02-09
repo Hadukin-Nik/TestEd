@@ -9,6 +9,8 @@ import org.game.util.IRandDoubleGenerator;
 import org.game.util.RandDoubleGenerator;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class DodgeStrategyTest {
@@ -31,7 +33,7 @@ class DodgeStrategyTest {
         int initialHealth = bot.getHealth();
         int damage = 10;
         AttackAction attackAction = new AttackAction("", bot.getId(), damage);
-        GameAction result = dodgeStrategy.processAttack("", bot, attackAction);
+        GameAction result = dodgeStrategy.processAttack("", bot, attackAction, Arrays.asList(bot));
         assertEquals(initialHealth, bot.getHealth(), "Health shouldn't be changed");
         assertInstanceOf(DodgeAction.class, result, "Dodge action should be created");
     }
@@ -46,7 +48,7 @@ class DodgeStrategyTest {
         int initialHealth = bot.getHealth();
         int damage = 10;
         AttackAction attackAction = new AttackAction("", bot.getId(), damage);
-        GameAction result = dodgeStrategy.processAttack("", bot, attackAction);
+        GameAction result = dodgeStrategy.processAttack("", bot, attackAction, Arrays.asList(bot));
         assertEquals(initialHealth, bot.getHealth(), "Health shouldn't be changed");
         assertNull(result, "Dodge action shouldn't be created");
     }

@@ -6,7 +6,6 @@ public class DeathAction implements GameAction {
 
     private String message;
 
-
     public DeathAction(String sender, String receiver, String message){
         this.sender = sender;
         this.receiver = receiver;

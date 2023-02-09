@@ -5,10 +5,8 @@ import org.game.actions.GameAction;
 import org.game.actions.HealAction;
 import org.game.objects.Inventory;
 import org.game.objects.strategy.attackReaction.AttackReactionStrategy;
-import org.game.objects.strategy.attackReaction.DefaultPlayerStrategy;
-import org.game.objects.strategy.attackReaction.DefaultStrategy;
+import org.game.objects.strategy.attackReaction.DefaultReadyEntityStrategy;
 import org.game.userInterface.BattleInterface;
-import org.game.userInterface.menuActions.InventoryMenu;
 
 import java.util.List;
 
@@ -22,7 +20,7 @@ public class Player extends GameEntity {
         id = "PlayerID";
         name = "Player";
 
-        health = 1;
+        health = 100;
         damage = 10;
 
         inventory = new Inventory();
@@ -33,7 +31,7 @@ public class Player extends GameEntity {
 
         this.battleInterface = battleInterface;
         this.inventory = inventory;
-        this.attackReactionStrategy = new DefaultPlayerStrategy(levelMaster);
+        this.attackReactionStrategy = new DefaultReadyEntityStrategy(levelMaster);
 
     }
 
@@ -45,7 +43,7 @@ public class Player extends GameEntity {
     @Override
     public GameAction processAction(GameAction action, List<GameEntity> entities) {
         if (action instanceof AttackAction) {
-            return attackReactionStrategy.processAttack(action.getSender(), this, (AttackAction) action);
+            return attackReactionStrategy.processAttack(action.getSender(), this, (AttackAction) action, entities);
         } else if (action instanceof HealAction) {
             this.health = this.health + ((HealAction) action).getHealth();
         }

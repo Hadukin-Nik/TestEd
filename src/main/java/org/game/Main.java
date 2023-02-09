@@ -25,6 +25,7 @@ public class Main {
                 levelMaster
         );
         List<GameEntity> enemies = new ArrayList<>();
+        BotFactory.setDefaultStrategy(levelMaster);
         enemies.addAll(BotFactory.createGoblins(2));
         levelMaster.addAllies(Arrays.asList(player));
         levelMaster.addEnemies(enemies);

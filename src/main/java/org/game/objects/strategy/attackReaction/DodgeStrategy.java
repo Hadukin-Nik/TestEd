@@ -7,6 +7,7 @@ import org.game.objects.entities.GameEntity;
 import org.game.util.IRandDoubleGenerator;
 import org.game.util.RandDoubleGenerator;
 
+import java.util.List;
 import java.util.Random;
 
 public class DodgeStrategy implements AttackReactionStrategy {
@@ -25,7 +26,7 @@ public class DodgeStrategy implements AttackReactionStrategy {
 
 
     @Override
-    public GameAction processAttack(String sender, GameEntity receiver, AttackAction attackAction) {
+    public GameAction processAttack(String sender, GameEntity receiver, AttackAction attackAction, List<GameEntity> entities) {
         if (rand.nextDouble(MAX_CHANCE_DODGE) < chanceOfDodge) {
             return new DodgeAction(sender, receiver.getId());
         }

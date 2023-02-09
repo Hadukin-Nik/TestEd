@@ -11,8 +11,9 @@ public abstract class GameEntity {
     protected int health;
     protected int damage;
 
-    protected BattleInterface battleInterface;
+    private boolean canMakeTurn = true;
 
+    protected BattleInterface battleInterface;
     public String getId() {
         return id;
     }
@@ -34,7 +35,11 @@ public abstract class GameEntity {
     }
 
     public boolean hasAction() {
-        return true;
+        return canMakeTurn;
+    }
+
+    public void setCanMakeTurn(boolean opportunity) {
+        canMakeTurn = opportunity;
     }
 
     public String getGameLogState() {

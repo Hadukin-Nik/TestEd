@@ -15,9 +15,9 @@ public class ReactionsChain implements AttackReactionStrategy {
 
 
     @Override
-    public GameAction processAttack(String sender, GameEntity receiver, AttackAction attackAction) {
+    public GameAction processAttack(String sender, GameEntity receiver, AttackAction attackAction, List<GameEntity> entities) {
         for (AttackReactionStrategy strategy: strategies) {
-            GameAction reaction = strategy.processAttack(sender, receiver, attackAction);
+            GameAction reaction = strategy.processAttack(sender, receiver, attackAction, entities);
             if (reaction != null) {
                 return reaction;
             }

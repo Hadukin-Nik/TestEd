@@ -4,6 +4,7 @@ import org.game.actions.AttackAction;
 import org.game.actions.GameAction;
 import org.game.objects.strategy.attack.AttackStrategy;
 import org.game.objects.strategy.attackReaction.AttackReactionStrategy;
+import org.game.objects.strategy.attackReaction.DefaultReadyEntityStrategy;
 import org.game.util.Rands;
 
 import java.util.List;
@@ -40,11 +41,8 @@ public class Bot extends GameEntity{
 
     @Override
     public GameAction processAction(GameAction action, List<GameEntity> entities) {
-        if (action instanceof AttackAction && attackReactionStrategy != null) {
-            GameAction attackReaction = attackReactionStrategy.processAttack(action.getSender(), this, (AttackAction) action);
-            if (attackReaction != null) {
-                return attackReaction;
-            }
+        if (action instanceof AttackAction) {
+            return attackReactionStrategy.processAttack(action.getSender(), this, (AttackAction) action, entities);
         }
 
         return null;

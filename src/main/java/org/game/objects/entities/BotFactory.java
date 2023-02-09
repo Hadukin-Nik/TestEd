@@ -2,6 +2,7 @@ package org.game.objects.entities;
 
 import org.game.objects.strategy.attack.AttackStrategy;
 import org.game.objects.strategy.attack.RandomAttackStrategy;
+import org.game.objects.strategy.attackReaction.DefaultReadyEntityStrategy;
 import org.game.objects.strategy.attackReaction.DefaultStrategy;
 import org.game.objects.strategy.attackReaction.DodgeStrategy;
 import org.game.objects.strategy.attackReaction.ReactionsChain;
@@ -13,8 +14,13 @@ import java.util.List;
 public class BotFactory {
 
     private static final AttackStrategy attackStrategy = new RandomAttackStrategy();
-    private static final DodgeStrategy dodgeStrategy = new DodgeStrategy(new RandDoubleGenerator(), 3.0);
-    private static final DefaultStrategy defaultStrategy = new DefaultStrategy();
+    private static DodgeStrategy dodgeStrategy = new DodgeStrategy(new RandDoubleGenerator(), 3.0);
+    private static DefaultStrategy defaultStrategy = new DefaultStrategy();
+
+
+    public static void setDefaultStrategy(LevelMaster levelMaster) {
+        defaultStrategy = new DefaultReadyEntityStrategy(levelMaster);
+    }
 
     public static Bot createSingleOrc(String name) {
         Bot bot = new Bot(name);

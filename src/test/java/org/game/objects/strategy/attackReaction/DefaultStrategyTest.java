@@ -6,6 +6,8 @@ import org.game.objects.entities.Bot;
 import org.game.objects.entities.BotFactory;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class DefaultStrategyTest {
@@ -17,7 +19,7 @@ class DefaultStrategyTest {
         int initHealth = bot.getHealth();
         int damage = 10;
         AttackAction attackAction = new AttackAction("", bot.getId(), damage);
-        GameAction reaction = defaultStrategy.processAttack("", bot, attackAction);
+        GameAction reaction = defaultStrategy.processAttack("", bot, attackAction, Arrays.asList(bot));
         assertNull(reaction, "Not expected any reaction for simple damage");
         assertEquals(initHealth - damage, bot.getHealth(), "Bot should receive damage on damage action");
     }
